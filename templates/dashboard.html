@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Admin | Restaurant Management System</title>
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background: #f4f6f9;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #111827;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: 0.3s;
+      position: fixed;
+      height: 100%;
+    }
+
+    .sidebar .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      width: 150px;
+      height: 50px;
+      background: #2563eb;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .sidebar ul {
+      list-style: none;
+      flex-grow: 1;
+      overflow-y: scroll;
+    }
+
+    .sidebar ul li {
+      border-bottom: 1px solid #1f2937;
+    }
+
+    .sidebar ul li a {
+      display: block;
+      padding: 14px 20px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
+      background: #2563eb;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex-grow: 1;
+      background: #f4f6f9;
+      display: flex;
+      flex-direction: column;
+      margin-left: 250px;
+      transition: 0.3s;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #fff;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 15px;
+    }
+
+    .navbar .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .navbar .profile img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+
+    .navbar .profile span {
+      font-weight: 500;
+    }
+
+    .logout-btn {
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #b91c1c;
+    }
+
+    /* Dashboard Cards */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 25px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      color: #6b7280;
+      font-size: 16px;
+    }
+
+    .card h1 {
+      margin-top: 10px;
+      color: #111827;
+      font-size: 32px;
+      transition: 0.5s ease;
+    }
+
+    /* Table Section */
+    .table-container {
+      background: #fff;
+      border-radius: 12px;
+      margin: 0 25px 25px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    tr:hover {
+      background: #f3f4f6;
+    }
+
+    .status {
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    .active {
+      background: #16a34a;
+    }
+
+    .inactive {
+      background: #dc2626;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 70px;
+      }
+
+      .sidebar .logo {
+        width: 50px;
+        height: 30px;
+      }
+
+      .sidebar ul li a {
+        font-size: 13px;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .main-content {
+        margin-left: 70px;
+      }
+
+      .navbar {
+        padding: 10px 15px;
+      }
+
+      .navbar .profile span {
+        display: none;
+      }
+
+      .dashboard {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 15px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      .card h1 {
+        font-size: 28px;
+      }
+
+      .table-container {
+        margin: 0 15px 15px;
+        padding: 15px;
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 600px;
+      }
+
+      th, td {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        position: absolute;
+        left: -250px;
+        transition: left 0.3s;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .navbar {
+        padding: 10px;
+      }
+
+      .dashboard {
+        padding: 10px;
+      }
+
+      .card h3 {
+        font-size: 14px;
+      }
+
+      .card h1 {
+        font-size: 24px;
+      }
+
+      .table-container {
+        margin: 0 10px 10px;
+        padding: 10px;
+      }
+
+      .table-container h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">Super Admin</div>
+    <ul>
+      <li><a href="/dashboard" class="active">Dashboard</a></li>
+      <li><a href="/admin-profile">Admin Profile</a></li>
+      <li><a href="/user-management">User Management</a></li>
+      <li><a href="/user-role">User Role</a></li>
+      <li><a href="/restaurant-management">Restaurant Management</a></li>
+      <li><a href="/notification-management">Notification Management</a></li>
+      <li><a href="/subscription-plan">Subscription Plan Management</a></li>
+      <li><a href="/subscription-history">Subscription History</a></li>
+      <li><a href="/country">Country</a></li>
+      <li><a href="/state">State</a></li>
+      <li><a href="/city">City</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="profile" onclick="window.location.href='/admin-profile'">
+        <img src="{{ admin.profile_image }}" alt="Profile">
+        <span>{{ admin.name }}</span>
+      </div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="dashboard">
+      <div class="card">
+        <h3>No. of Restaurants</h3>
+        <h1 id="restaurantCount">0</h1>
+      </div>
+      <div class="card">
+        <h3>Total Users</h3>
+        <h1 id="userCount">0</h1>
+      </div>
+      <div class="card">
+        <h3>Active Users</h3>
+        <h1 id="activeUserCount">0</h1>
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-container">
+      <h2 style="margin-bottom:15px;">Restaurant List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Restaurant Name</th>
+            <th>Owner</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Registered</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#101</td>
+            <td>Truffle Downtown</td>
+            <td>Raj Malhotra</td>
+            <td>Bangalore</td>
+            <td><span class="status active">Active</span></td>
+            <td>12 Jan 2025</td>
+          </tr>
+          <tr>
+            <td>#102</td>
+            <td>Spice Villa</td>
+            <td>Ritika Sharma</td>
+            <td>Delhi</td>
+            <td><span class="status inactive">Inactive</span></td>
+            <td>21 Feb 2025</td>
+          </tr>
+          <tr>
+            <td>#103</td>
+            <td>Green Bowl</td>
+            <td>Vikram Patel</td>
+            <td>Mumbai</td>
+            <td><span class="status active">Active</span></td>
+            <td>10 Mar 2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+  // Animated counter function
+  function animateCount(id, target) {
+    let count = 0;
+    const speed = 20;
+    const increment = target / 100;
+    const element = document.getElementById(id);
+
+    const counter = setInterval(() => {
+      count += increment;
+      if (count >= target) {
+        count = target;
+        clearInterval(counter);
+      }
+      element.textContent = Math.floor(count);
+    }, speed);
+  }
+
+  // Animate all counters
+  window.onload = () => {
+    animateCount("restaurantCount", {{ stats.restaurants }});
+    animateCount("userCount", {{ stats.total_users }});
+    animateCount("activeUserCount", {{ stats.active_users }});
+  };
+
+  // Logout Function
+  function logout() {
+    window.location.href = "/";
+  }
+  </script>
+</body>
+</html>

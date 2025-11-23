@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>
+  <link rel="icon" type="image/png" href="/static/favicon.png">Subscription History | Super Admin</title>
+<link rel="icon" type="image/png" href="/static/favicon.png">
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;display:flex;background:#f4f6f9;}
+.sidebar{width:250px;background:#111827;color:#fff;position:fixed;height:100%;overflow-y:auto;}
+.sidebar h2{text-align:center;padding:20px 0;background:#1f2937;}
+.sidebar ul{list-style:none;padding:0;margin:0;}
+.sidebar ul li{padding:14px 20px;border-bottom:1px solid #1f2937;cursor:pointer;}
+.sidebar ul li:hover,.active{background:#2563eb;}
+.main-content{margin-left:250px;flex-grow:1;}
+.navbar{background:#fff;padding:15px 25px;display:flex;justify-content:flex-end;align-items:center;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+.navbar .profile{display:flex;align-items:center;gap:10px;margin-right: 10px;cursor:pointer;}
+.navbar img{width:35px;height:35px;border-radius:50%;}
+.logout-btn{background:#dc2626;color:#fff;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;margin-left: 10px;}
+.page-header{display:flex;justify-content:space-between;align-items:center;padding:25px;}
+.table-container{background:#fff;margin:0 25px 25px;padding:20px;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,0.1); overflow-x: auto;}
+table{width:100%;border-collapse:collapse; min-width: 600px;}
+th,td{padding:12px;border-bottom:1px solid #eee;text-align:left;}
+th{background:#f9fafb;}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .sidebar .logo {
+    width: 50px;
+    height: 30px;
+  }
+
+  .sidebar ul li {
+    font-size: 13px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .main-content {
+    margin-left: 70px;
+  }
+
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .navbar .profile span {
+    display: none;
+  }
+
+  .page-header {
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .table-container {
+    margin: 0 15px 15px;
+    padding: 10px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    position: absolute;
+    left: -250px;
+    transition: left 0.3s;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .page-header {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .table-container {
+    margin: 0 10px 10px;
+    padding: 5px;
+  }
+
+  th, td {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+</style></head>
+<body>
+  <div class="sidebar">
+    <div class="logo">Super Admin</div>
+    <ul>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/admin-profile">Admin Profile</a></li>
+      <li><a href="/user-management">User Management</a></li>
+      <li><a href="/user-role">User Role</a></li>
+      <li><a href="/restaurant-management">Restaurant Management</a></li>
+      <li><a href="/notification-management">Notification Management</a></li>
+      <li><a href="/subscription-plan">Subscription Plan Management</a></li>
+      <li class="active"><a href="/subscription-history">Subscription History</a></li>
+      <li><a href="/country">Country</a></li>
+      <li><a href="/state">State</a></li>
+      <li><a href="/city">City</a></li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="navbar">
+      <div class="profile" onclick="window.location.href='/admin-profile'"><img src="{{ admin.profile_image }}"><span>{{ admin.name }}</span></div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    <div class="page-header"><h2>Subscription History</h2></div>
+    <div class="table-container">
+      <table><thead><tr><th>ID</th><th>User Name</th><th>Plan</th><th>Start Date</th><th>End Date</th><th>Status</th></tr></thead>
+      <tbody><tr><td>1</td><td>Rohit Verma</td><td>Premium</td><td>01-Oct-2025</td><td>31-Dec-2025</td><td>Active</td></tr></tbody></table>
+    </div>
+  </div>
+  <script>
+    if(localStorage.getItem("isLoggedIn")!=="true")window.location.href="login.html";
+    function logout(){localStorage.removeItem("isLoggedIn");window.location.href="login.html";}
+  </script>
+</body>
+</html>

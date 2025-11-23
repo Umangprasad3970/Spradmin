@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Admin Login | Restaurant Management</title>
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #2563eb, #1e3a8a);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 350px;
+      max-width: 90%;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+        width: 90%;
+      }
+
+      .login-container h2 {
+        font-size: 24px;
+      }
+
+      .input-group input {
+        padding: 12px;
+        font-size: 16px;
+      }
+
+      .btn {
+        padding: 14px;
+        font-size: 16px;
+      }
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #1e3a8a;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #2563eb;
+    }
+
+    .btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #1e40af;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Super Admin Login</h2>
+    <form method="POST" action="/">
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter email" required />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required />
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p class="error" id="errorMsg">Invalid Email or Password</p>
+  </div>
+</body>
+</html>
